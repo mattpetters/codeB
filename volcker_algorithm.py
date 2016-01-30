@@ -1,6 +1,5 @@
 import socket
 import sys
-import subprocess
 
 username = "Volcker"
 password = "bernankescrisis"
@@ -17,11 +16,15 @@ def run(user, password, *commands):
         sock.sendall(data)
         sfile = sock.makefile()
         rline = sfile.readline()
+        output = []
         while rline:
             # getOutput(rline.strip())
-            print rline.strip()
+            # print rline.strip()
+            output.append(rline.strip())
             rline = sfile.readline()
-            return rline.strip()
+
+            return output
+
     finally:
         sock.close()
 
@@ -73,11 +76,14 @@ def runCommand(call):
 
 
 def getSecurities():
-    securities = runCommand("SECURITIES")
-    for i in range(1,38, 4):
-         securities.append(splitString[i])
-    print securities
-    return securities
+    securities = []
+    output = runCommand("SECURITIES")
+    print "output: " , output
+
+    for i in range(1,len(output), 4):
+         securities.append(output[i])
+    # print securities
+    # return securities
 getSecurities()
 
 
