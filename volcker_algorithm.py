@@ -16,11 +16,12 @@ def run(user, password, *commands):
         sock.sendall(data)
         sfile = sock.makefile()
         rline = sfile.readline()
-        output = []
+        output = ""
         while rline:
             # getOutput(rline.strip())
             # print rline.strip()
-            output.append(rline.strip())
+            #output.append(rline.strip())
+            output = rline.strip()
             rline = sfile.readline()
 
             return output
@@ -77,21 +78,22 @@ def runCommand(call):
     return run("Volcker", "bernankescrisis", call)
 
 
-def getSecurities():
-    securities = []
-    output = runCommand("SECURITIES")
-    print "output: " , output
+# def getSecurities():
+#     securities = []
+#     output = runCommand("SECURITIES")
+#     print "output: " , output
 
-    for i in range(1,len(output), 4):
-         securities.append(output[i])
-    # print securities
-    # return securities
-getSecurities()
+#     for i in range(1,len(output), 4):
+#          securities.append(output[i])
+#     # print securities
+#     # return securities
+# getSecurities()
 
-def createSecurityDict(responseString):
-    print responseString
+def createSecurityDict():
     securities = {}
-    splitString = responseString.split()
+    output = runCommand("SECURITIES")
+    splitString = output.split()
+    print splitString
     
     for i in range(1, len(splitString),4):
         securities[splitString[i]] = {'netWorth':splitString[i+1],
@@ -101,7 +103,7 @@ def createSecurityDict(responseString):
     print securities
     return securities
 
-handleOperations()
+createSecurityDict()
 
 # def trade(security):
     # marketCap = run()
