@@ -77,13 +77,13 @@ def runCommand(call):
 
 def getSecurities():
     securities = []
-    output = runCommand("SECURITIES")
-    print "output: " , output
-
-    for i in range(1,len(output), 4):
-         securities.append(output[i])
-    # print securities
-    # return securities
+    string = runCommand("SECURITIES")
+    # print "output: " , output
+    outList = string[0].split()
+    for i in range(1,len(outList), 4):
+         securities.append(outList[i])
+    # print "fuck yeah: ", securities
+    return securities
 getSecurities()
 
 
