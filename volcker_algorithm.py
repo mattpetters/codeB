@@ -36,5 +36,25 @@ def subscribe(user, password):
             rline = sfile.readline()
     finally:
         sock.close()
-        
-run("Volcker", "bernankescrisis", "MY_CASH")
+
+# def handleOperations():
+
+#     securities = ["AAPL", "GM", "C", "CMG", "DELL", "DIS", "F", "JPY", "XOM", "IBM"]
+
+
+# def buy(security):
+
+# def sell(security):
+
+# def getVolitility(security):
+
+# def getPrice(security):
+
+# def getDivRatio(security):
+
+# def getNetWorth(security):
+
+
+
+
+
