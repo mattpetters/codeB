@@ -4,10 +4,10 @@ import sys, time
 username = "Volcker"
 password = "bernankescrisis"
 database = {}
-    
+
 def run(user, password, *commands):
     HOST, PORT = "codebb.cloudapp.net", 17429
-    
+
     data=user + " " + password + "\n" + "\n".join(commands) + "\nCLOSE_CONNECTION\n"
 
     try:
@@ -29,7 +29,7 @@ def run(user, password, *commands):
 
 def subscribe(user, password):
     HOST, PORT = "codebb.cloudapp.net", 17429
-    
+
     data=user + " " + password + "\nSUBSCRIBE\n"
 
     try:
@@ -65,7 +65,7 @@ def createSecurityDict():
     output = runCommand("SECURITIES")
     splitString = output.split()
 
-    
+
     for i in range(1, len(splitString),4):
         securities[splitString[i]] = {'netWorth':splitString[i+1],
         'divRatio':splitString[i+2],
@@ -94,7 +94,7 @@ def createSecurityDict():
 
 
 # def getMarketCap(ticker):
-    
+
 
 
 
@@ -123,5 +123,19 @@ def getMarketValue(ticker):
     return float((bidPrice * numBids) + (askPrice * numAsks)) / float(numAsks + numBids)
 
 
-
-
+def trade(security, db):
+    myCash = getMyCash();
+    numShares = numSharesThisSecurity(security)
+    # for each security, check:
+    # BUY
+    # is market value (vol*avg(bid+ask)) < net worth
+    if (marketValue(security) < db[security]["netWorth"])
+        # determine what percent of portfolio allocated to this share by making it a ratio of networth/market value difference
+        # percentAllocation = (((security.networth - marketValue(security))/security.netWorth))*80)/100
+        numSharesBuy = floor((myCash*0.1)/security.pricePerShare);
+        runCommand(buy(security, PRICE FROM..., NUM SHARES FROM....))
+    # SELL
+    else {
+        sell(security, ,numShares)
+    }
+    marketValue = (security.bid + secuirty.ask) / security.volume
