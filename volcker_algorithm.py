@@ -49,7 +49,9 @@ def subscribe(user, password):
 def main():
     print runCommand("CLOSE_CONNECTION")
     securities = getSecurities()
-
+    for sec in securities:
+        database = createSecurityDict()
+        buy(sec, database[sec]["askPrice"], 2)
     while(True):
         print "Restart!"
         print runCommand("MY_SECURITIES")
