@@ -75,7 +75,7 @@ def handleOperations():
 # def getSecurities(responseString):
 
 def runCommand(call):
-    return run("Volcker", "bernankescrisis", call)
+    return run(username, password, call)
 
 
 # def getSecurities():
@@ -89,18 +89,34 @@ def runCommand(call):
 #     # return securities
 # getSecurities()
 
+
+# Returns dictionary of securities with data
+# To index into specific data use:
+# securities['TICKER']['DATAKEY']
+# Datakeys are as follows:
+# netWorth, divRatio, volatility, bidPrice, askPrice, bidShares, askShares
 def createSecurityDict():
     securities = {}
     output = runCommand("SECURITIES")
     splitString = output.split()
+
     
     for i in range(1, len(splitString),4):
         securities[splitString[i]] = {'netWorth':splitString[i+1],
         'divRatio':splitString[i+2],
         'volatility':splitString[i+3]}
 
+
+    for security in securities:
+        print runCommand("ORDERS " + security)
+        bidString = runCommand("ORDERS " + security).split()
+        securities[security]["bidPrice"] = bidString[3]
+        securities[security]["askPrice"] = bidString[7]
+        securities[security]["bidShares"] = bidString[4]
+        securities[security]["askShares"] = bidString[8]
+
+
     print securities
-    #print securities['AAPL']['netWorth']
     return securities
 
 createSecurityDict()
