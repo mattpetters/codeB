@@ -54,6 +54,23 @@ def subscribe(user, password):
 
 # def getNetWorth(security):
 
+# def main():
+
+
+# def trade(security):
+
+
+
+
+
+def buy(security, price, shares):
+    order = "BID " + security.upper() + " " + str(price) + " " + str(float(shares))
+    run("Volcker", "bernankescrisis", order)
+def sell(security, price, shares):
+    order = "ASK " + security.upper() + " " + str(price) + " " + str(float(shares))
+    run("Volcker", "bernankescrisis", order)
+
+
 
 
 
