@@ -1,5 +1,5 @@
 import socket
-import sys, time
+import sys, time, math
 
 username = "Volcker"
 password = "bernankescrisis"
@@ -45,15 +45,24 @@ def subscribe(user, password):
     finally:
         sock.close()
 
+def main():
+    securities = getSecurities()
+    while(True):
+        print "Restart!"
+        for sec in securities:
+            database = createSecurityDict()
+            trade(sec, database)
 
-<<<<<<< HEAD
-# def main():
-#     securities = getSecurities()
-
-#     for security in securities:
-#         database = createSecurityDict()
-#         trade(security, database)
     
+def getSecurities():
+    string = runCommand("SECURITIES")
+    output = string.split()
+
+    securitiesList = []
+    for i in range(1, len(output), 4):
+        securitiesList.append(output[i])
+    print securitiesList
+    return securitiesList
 
 #     securities = ["AAPL", "GM", "C", "CMG", "DELL", "DIS", "F", "JPY", "XOM", "IBM"]
 #     
@@ -108,12 +117,12 @@ def createSecurityDict():
     return securities
 
 def buy(security, price, shares):
-    order = "BID " + security.upper() + " " + str(price) + " " + str(float(shares))
-    print runCommand(order)
+    order = "BID " + security.upper() + " " + str(price) + " " + str(int(shares))
+    print "BOUGHT %s: %s" % (security, runCommand(order))
 
 def sell(security, price, shares):
-    order = "ASK " + security.upper() + " " + str(price) + " " + str(float(shares))
-    print runCommand(order)
+    order = "ASK " + security.upper() + " " + str(price) + " " + str(int(shares))
+    print "SOLD %s: %s" % (security, runCommand(order))
 
 
 def getMyCash():
@@ -122,31 +131,58 @@ def getMyCash():
     return output[1]
 # print getMyCash()
 
-def getMarketValue(ticker):
-    database = createSecurityDict()
+def getMarketValue(ticker, database):
     bidPrice = float(database[ticker]["bidPrice"])
     numBids = float(database[ticker]["bidShares"])
 
     askPrice = float(database[ticker]["askPrice"])
     numAsks = float(database[ticker]["askPrice"])
 
-    return float((bidPrice * numBids) + (askPrice * numAsks)) 
-    # / float(numAsks + numBids)
+    return float((bidPrice * numBids) + (askPrice * numAsks)) / float(numAsks + numBids)
+# print getMarketValue("NFLX")
+# print runCommand("ORDERS NFLX")
+
+def numSharesSec(ticker):
+    secs = runCommand("MY_SECURITIES")
+    output = secs.split()
+    val = output[output.index(ticker) + 1]
+    return val
+
+
 
 
 def trade(security, db):
+    print "Determining trade for: %s" % str(security)
     myCash = getMyCash();
-    numShares = numSharesThisSecurity(security)
+    numShares = numSharesSec(security)
     # for each security, check:
     # BUY
     # is market value (vol*avg(bid+ask)) < net worth
-    if (marketValue(security) < db[security]["netWorth"])
+    marketVal = getMarketValue(security, db)
+    bidPrice = db[security]["bidPrice"]
+    askPrice = db[security]["askPrice"]
+
+
+    # if market val is less than what people want to buy at, sell everything
+    if (marketVal < bidPrice or askPrice > marketVal):
         # determine what percent of portfolio allocated to this share by making it a ratio of networth/market value difference
         # percentAllocation = (((security.networth - marketValue(security))/security.netWorth))*80)/100
-        numSharesBuy = floor((myCash*0.1)/security.pricePerShare);
-        runCommand(buy(security, PRICE FROM..., NUM SHARES FROM....))
-    # SELL
-    else {
-        sell(security, ,numShares)
-    }
-    marketValue = (security.bid + secuirty.ask) / security.volume
+        # numSharesBuy = floor((myCash*0.1)/security.pricePerShare);
+        # runCommand(buy(security, PRICE FROM..., NUM SHARES FROM....))
+        y = float(numSharesSec(security))
+        if y > 0:         
+            print "numshares to sell: ", y
+            sell(security, float(bidPrice) , y)
+    # buy
+    elif (marketVal > askPrice):
+        x = (float(bidPrice - marketVal)/float(bidPrice) * getMyCash())
+        numSharesToBuy = math.floor(x/float(askPrice))
+        if numSharesToBuy > 0:
+            print "numshares to buy: ", numSharesToBuy
+
+            buy(security, askPrice, numSharesToBuy)
+    else:
+        print "No trade for %s" % str(security)
+
+
+if __name__ == "__main__": main()
