@@ -4,10 +4,10 @@ import sys, time
 username = "Volcker"
 password = "bernankescrisis"
 database = {}
-    
+
 def run(user, password, *commands):
     HOST, PORT = "codebb.cloudapp.net", 17429
-    
+
     data=user + " " + password + "\n" + "\n".join(commands) + "\nCLOSE_CONNECTION\n"
 
     try:
@@ -19,9 +19,6 @@ def run(user, password, *commands):
         rline = sfile.readline()
         output = ""
         while rline:
-            # getOutput(rline.strip())
-            # print rline.strip()
-            #output.append(rline.strip())
             output = rline.strip()
             rline = sfile.readline()
 
@@ -32,7 +29,7 @@ def run(user, password, *commands):
 
 def subscribe(user, password):
     HOST, PORT = "codebb.cloudapp.net", 17429
-    
+
     data=user + " " + password + "\nSUBSCRIBE\n"
 
     try:
@@ -49,16 +46,13 @@ def subscribe(user, password):
         sock.close()
 
 
+<<<<<<< HEAD
 # def main():
 #     securities = getSecurities()
 
 #     for security in securities:
 #         database = createSecurityDict()
 #         trade(security, database)
-
-
-def handleOperations():
- run(username, password, "SECURITIES")
     
 
 #     securities = ["AAPL", "GM", "C", "CMG", "DELL", "DIS", "F", "JPY", "XOM", "IBM"]
@@ -85,18 +79,6 @@ def runCommand(call):
     return run(username, password, call)
 
 
-# def getSecurities():
-#     securities = []
-#     output = runCommand("SECURITIES")
-#     print "output: " , output
-
-#     for i in range(1,len(output), 4):
-#          securities.append(output[i])
-#     # print securities
-#     # return securities
-# getSecurities()
-
-
 # Returns dictionary of securities with data
 # To index into specific data use:
 # securities['TICKER']['DATAKEY']
@@ -107,7 +89,7 @@ def createSecurityDict():
     output = runCommand("SECURITIES")
     splitString = output.split()
 
-    
+
     for i in range(1, len(splitString),4):
         securities[splitString[i]] = {'netWorth':splitString[i+1],
         'divRatio':splitString[i+2],
@@ -115,7 +97,6 @@ def createSecurityDict():
 
 
     for security in securities:
-        print runCommand("ORDERS " + security)
         bidString = runCommand("ORDERS " + security).split()
         securities[security]["bidPrice"] = bidString[3]
         securities[security]["askPrice"] = bidString[7]
@@ -125,23 +106,6 @@ def createSecurityDict():
 
     # print securities
     return securities
-
-# while True:
-#     time.sleep(1)
-#     database = createSecurityDict()
-
-# createSecurityDict()
-
-# def trade(security):
-    # marketCap = run()
-    # netWorth = run(security +)
-
-
-
-# def getMarketCap(ticker):
-    
-
-
 
 def buy(security, price, shares):
     order = "BID " + security.upper() + " " + str(price) + " " + str(float(shares))
@@ -170,4 +134,19 @@ def getMarketValue(ticker):
     # / float(numAsks + numBids)
 
 
-
+def trade(security, db):
+    myCash = getMyCash();
+    numShares = numSharesThisSecurity(security)
+    # for each security, check:
+    # BUY
+    # is market value (vol*avg(bid+ask)) < net worth
+    if (marketValue(security) < db[security]["netWorth"])
+        # determine what percent of portfolio allocated to this share by making it a ratio of networth/market value difference
+        # percentAllocation = (((security.networth - marketValue(security))/security.netWorth))*80)/100
+        numSharesBuy = floor((myCash*0.1)/security.pricePerShare);
+        runCommand(buy(security, PRICE FROM..., NUM SHARES FROM....))
+    # SELL
+    else {
+        sell(security, ,numShares)
+    }
+    marketValue = (security.bid + secuirty.ask) / security.volume
