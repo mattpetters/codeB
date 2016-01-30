@@ -1,5 +1,9 @@
 import socket
 import sys
+
+username = "Volcker"
+password = "bernankescrisis"
+securities = []
     
 def run(user, password, *commands):
     HOST, PORT = "codebb.cloudapp.net", 17429
@@ -14,7 +18,7 @@ def run(user, password, *commands):
         sfile = sock.makefile()
         rline = sfile.readline()
         while rline:
-            print(rline.strip())
+            getSecurities(rline.strip())
             rline = sfile.readline()
     finally:
         sock.close()
@@ -37,12 +41,18 @@ def subscribe(user, password):
     finally:
         sock.close()
 
-# def handleOperations():
+
+
+
+#def handleOperations():
+# run(username, password, "SECURITIES")
+    
 
 #     securities = ["AAPL", "GM", "C", "CMG", "DELL", "DIS", "F", "JPY", "XOM", "IBM"]
-
+#     
 
 # def buy(security):
+# 
 
 # def sell(security):
 
@@ -54,10 +64,15 @@ def subscribe(user, password):
 
 # def getNetWorth(security):
 
-# def main():
+def getSecurities(responseString):
+    splitString = responseString.split()
+    for i in range(1,38, 4):
+         securities.append(splitString[i])
+    print securities
+    return securities
 
 
-# def trade(security):
+#handleOperations()
 
 
 
