@@ -46,11 +46,6 @@ def subscribe(user, password):
         sock.close()
 
 
-
-
-def handleOperations():
- run(username, password, "SECURITIES")
-
 def runCommand(call):
     return run(username, password, call)
 
