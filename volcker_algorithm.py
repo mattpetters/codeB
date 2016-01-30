@@ -87,8 +87,11 @@ def getSecurities():
 getSecurities()
 
 
-
-
+def getMyCash():
+    string = runCommand("MY_CASH")
+    output = string.split()
+    return output[1]
+print getMyCash()
 # def trade(security):
     # marketCap = run()
     # netWorth = run(security +)
