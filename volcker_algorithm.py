@@ -17,7 +17,7 @@ def run(user, password, *commands):
         sfile = sock.makefile()
         rline = sfile.readline()
         while rline:
-            getSecurities(rline.strip())
+            createSecurityDict(rline.strip())
             rline = sfile.readline()
     finally:
         sock.close()
@@ -57,7 +57,9 @@ def handleOperations():
 
 # def getVolitility(security):
 
+
 # def getPrice(security):
+
 
 # def getDivRatio(security):
 
@@ -66,12 +68,25 @@ def handleOperations():
 def getSecurities(responseString):
     splitString = responseString.split()
     for i in range(1,38, 4):
-         securities.append(splitString[i])
+        securities.append(splitString[i])
+    print splitString.length
     print securities
     return securities
 
+def createSecurityDict(responseString):
+    print responseString
+    securities = {}
+    splitString = responseString.split()
+    
+    for i in range(1, len(splitString),4):
+        securities[splitString[i]] = {'netWorth':splitString[i+1],
+        'divRatio':splitString[i+2],
+        'volatility':splitString[i+3]}
 
-#handleOperations()
+    print securities
+    return securities
+
+handleOperations()
 
 
 
