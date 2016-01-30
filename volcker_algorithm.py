@@ -57,9 +57,17 @@ def subscribe(user, password):
 # def main():
 
 
-# def trade(security):
+def run(call):
+    run("Volcker", "bernankescrisis", call)
+
+def trade(security):
+    # marketCap = run()
+    # netWorth = run(security +)
 
 
+
+# def getMarketCap(ticker):
+    
 
 
 
