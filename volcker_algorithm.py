@@ -93,7 +93,6 @@ def createSecurityDict():
     securities = {}
     output = runCommand("SECURITIES")
     splitString = output.split()
-    print splitString
     
     for i in range(1, len(splitString),4):
         securities[splitString[i]] = {'netWorth':splitString[i+1],
@@ -101,6 +100,7 @@ def createSecurityDict():
         'volatility':splitString[i+3]}
 
     print securities
+    #print securities['AAPL']['netWorth']
     return securities
 
 createSecurityDict()
