@@ -49,6 +49,12 @@ def subscribe(user, password):
         sock.close()
 
 
+# def main():
+#     securities = getSecurities()
+
+#     for security in securities:
+#         database = createSecurityDict()
+#         trade(security, database)
 
 
 def handleOperations():
@@ -117,14 +123,14 @@ def createSecurityDict():
         securities[security]["askShares"] = bidString[8]
 
 
-    print securities
+    # print securities
     return securities
 
-while True:
-    time.sleep(1)
-    database = createSecurityDict()
+# while True:
+#     time.sleep(1)
+#     database = createSecurityDict()
 
-createSecurityDict()
+# createSecurityDict()
 
 # def trade(security):
     # marketCap = run()
@@ -153,14 +159,15 @@ def getMyCash():
 # print getMyCash()
 
 def getMarketValue(ticker):
+    database = createSecurityDict()
     bidPrice = float(database[ticker]["bidPrice"])
     numBids = float(database[ticker]["bidShares"])
 
     askPrice = float(database[ticker]["askPrice"])
     numAsks = float(database[ticker]["askPrice"])
 
-    return marketVal = float((bidPrice * numBids) + (askPrice * numAsks)) / float(numAsks + numBids)
-
+    return float((bidPrice * numBids) + (askPrice * numAsks)) 
+    # / float(numAsks + numBids)
 
 
 
