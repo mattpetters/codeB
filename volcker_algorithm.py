@@ -19,9 +19,6 @@ def run(user, password, *commands):
         rline = sfile.readline()
         output = ""
         while rline:
-            # getOutput(rline.strip())
-            # print rline.strip()
-            #output.append(rline.strip())
             output = rline.strip()
             rline = sfile.readline()
 
@@ -53,42 +50,9 @@ def subscribe(user, password):
 
 def handleOperations():
  run(username, password, "SECURITIES")
-    
-
-#     securities = ["AAPL", "GM", "C", "CMG", "DELL", "DIS", "F", "JPY", "XOM", "IBM"]
-#     
-
-# def buy(security):
-# 
-
-# def sell(security):
-
-# def getVolitility(security):
-
-
-# def getPrice(security):
-
-
-# def getDivRatio(security):
-
-# def getNetWorth(security):
-
-# def getSecurities(responseString):
 
 def runCommand(call):
     return run(username, password, call)
-
-
-# def getSecurities():
-#     securities = []
-#     output = runCommand("SECURITIES")
-#     print "output: " , output
-
-#     for i in range(1,len(output), 4):
-#          securities.append(output[i])
-#     # print securities
-#     # return securities
-# getSecurities()
 
 
 # Returns dictionary of securities with data
@@ -123,8 +87,6 @@ def createSecurityDict():
 while True:
     time.sleep(1)
     database = createSecurityDict()
-
-createSecurityDict()
 
 # def trade(security):
     # marketCap = run()
