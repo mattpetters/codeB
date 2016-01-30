@@ -16,11 +16,12 @@ def run(user, password, *commands):
         sock.sendall(data)
         sfile = sock.makefile()
         rline = sfile.readline()
-        output = []
+        output = ""
         while rline:
             # getOutput(rline.strip())
             # print rline.strip()
-            output.append(rline.strip())
+            #output.append(rline.strip())
+            output = rline.strip()
             rline = sfile.readline()
 
             return output
@@ -75,23 +76,24 @@ def runCommand(call):
     return run("Volcker", "bernankescrisis", call)
 
 
-def getSecurities():
-    securities = []
-    string = runCommand("SECURITIES")
-    # print "output: " , output
-    outList = string[0].split()
-    for i in range(1,len(outList), 4):
-         securities.append(outList[i])
-    # print "fuck yeah: ", securities
+# def getSecurities():
+#     securities = []
+#     output = runCommand("SECURITIES")
+#     print "output: " , output
+
+#     for i in range(1,len(output), 4):
+#          securities.append(output[i])
+#     # print securities
+#     # return securities
+# getSecurities()
+
+
+    print securities
+    #print securities['AAPL']['netWorth']
     return securities
-getSecurities()
 
+createSecurityDict()
 
-def getMyCash():
-    string = runCommand("MY_CASH")
-    output = string.split()
-    return output[1]
-print getMyCash()
 # def trade(security):
     # marketCap = run()
     # netWorth = run(security +)
