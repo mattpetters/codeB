@@ -74,8 +74,6 @@ def createSecurityDict():
         securities[security]["bidShares"] = bidString[4]
         securities[security]["askShares"] = bidString[8]
 
-
-    print securities
     return securities
 
 # while True:
@@ -118,19 +116,39 @@ def getMarketValue(ticker):
     return float((bidPrice * numBids) + (askPrice * numAsks)) / float(numAsks + numBids)
 
 
-def trade(security, db):
-    myCash = getMyCash();
-    numShares = numSharesThisSecurity(security)
-    # for each security, check:
-    # BUY
-    # is market value (vol*avg(bid+ask)) < net worth
-    if (marketValue(security) < db[security]["netWorth"])
-        # determine what percent of portfolio allocated to this share by making it a ratio of networth/market value difference
-        # percentAllocation = (((security.networth - marketValue(security))/security.netWorth))*80)/100
-        numSharesBuy = floor((myCash*0.1)/security.pricePerShare);
-        runCommand(buy(security, PRICE FROM..., NUM SHARES FROM....))
-    # SELL
-    else {
-        sell(security, ,numShares)
-    }
-    marketValue = (security.bid + secuirty.ask) / security.volume
+def buyStock():
+        securities = createSecurityDict()
+        for security in securities:
+            print security
+            print "BID " + security + " " + str(securities[security]['askPrice']) +  " 10"
+            print runCommand("BID " + security + " " + str(securities[security]['askPrice']) +  " 10")
+
+def sellStock():
+    securities = createSecurityDict()
+    for security in securities:
+        print security
+        print "ASK " + security + " " + str(securities[security]['bidPrice']) +  " 10"
+        print runCommand("ASK " + security + " " + str(securities[security]['bidPrice']) +  " 10")
+
+
+
+# def trade(security, db):
+#     myCash = getMyCash();
+#     numShares = numSharesThisSecurity(security)
+#     # for each security, check:
+#     # BUY
+#     # is market value (vol*avg(bid+ask)) < net worth
+#     if (marketValue(security) < db[security]["netWorth"])
+#         # determine what percent of portfolio allocated to this share by making it a ratio of networth/market value difference
+#         # percentAllocation = (((security.networth - marketValue(security))/security.netWorth))*80)/100
+#         numSharesBuy = floor((myCash*0.1)/security.pricePerShare);
+#         runCommand(buy(security, PRICE FROM..., NUM SHARES FROM....))
+#     # SELL
+#     else {
+#         sell(security, ,numShares)
+#     }
+#     marketValue = (security.bid + secuirty.ask) / security.volume
+while True:
+    buyStock()
+    time.sleep(60)
+    sellStock()
