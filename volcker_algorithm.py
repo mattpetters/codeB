@@ -1,8 +1,9 @@
 import socket
-import sys
+import sys, time
 
 username = "Volcker"
 password = "bernankescrisis"
+database = {}
     
 def run(user, password, *commands):
     HOST, PORT = "codebb.cloudapp.net", 17429
@@ -119,6 +120,10 @@ def createSecurityDict():
     print securities
     return securities
 
+while True:
+    time.sleep(1)
+    database = createSecurityDict()
+
 createSecurityDict()
 
 # def trade(security):
@@ -145,7 +150,17 @@ def getMyCash():
     cashRaw = runCommand("MY_CASH")
     output = cashRaw.split()
     return output[1]
-print getMyCash()
+# print getMyCash()
+
+def getMarketValue(ticker):
+    bidPrice = float(database[ticker]["bidPrice"])
+    numBids = float(database[ticker]["bidShares"])
+
+    askPrice = float(database[ticker]["askPrice"])
+    numAsks = float(database[ticker]["askPrice"])
+
+    return marketVal = float((bidPrice * numBids) + (askPrice * numAsks)) / float(numAsks + numBids)
+
 
 
 
