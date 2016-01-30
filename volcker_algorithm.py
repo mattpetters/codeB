@@ -64,7 +64,9 @@ def handleOperations():
 
 # def getVolitility(security):
 
+
 # def getPrice(security):
+
 
 # def getDivRatio(security):
 
@@ -87,6 +89,15 @@ def runCommand(call):
 #     # return securities
 # getSecurities()
 
+def createSecurityDict():
+    securities = {}
+    output = runCommand("SECURITIES")
+    splitString = output.split()
+    
+    for i in range(1, len(splitString),4):
+        securities[splitString[i]] = {'netWorth':splitString[i+1],
+        'divRatio':splitString[i+2],
+        'volatility':splitString[i+3]}
 
     print securities
     #print securities['AAPL']['netWorth']
@@ -113,7 +124,11 @@ def sell(security, price, shares):
     run(username, password, order)
 
 
-
+def getMyCash():
+    cashRaw = runCommand("MY_CASH")
+    output = cashRaw.split()
+    return output[1]
+print getMyCash()
 
 
 
