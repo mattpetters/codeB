@@ -1,5 +1,6 @@
 import socket
 import sys
+import subprocess
 
 username = "Volcker"
 password = "bernankescrisis"
@@ -17,8 +18,10 @@ def run(user, password, *commands):
         sfile = sock.makefile()
         rline = sfile.readline()
         while rline:
-            createSecurityDict(rline.strip())
+            # getOutput(rline.strip())
+            print rline.strip()
             rline = sfile.readline()
+            return rline.strip()
     finally:
         sock.close()
 
@@ -65,13 +68,20 @@ def handleOperations():
 
 # def getNetWorth(security):
 
-def getSecurities(responseString):
-    splitString = responseString.split()
+# def getSecurities(responseString):
+
+def runCommand(call):
+    return run("Volcker", "bernankescrisis", call)
+
+
+def getSecurities():
+    securities = runCommand("SECURITIES")
     for i in range(1,38, 4):
         securities.append(splitString[i])
     print splitString.length
     print securities
     return securities
+getSecurities()
 
 def createSecurityDict(responseString):
     print responseString
@@ -88,7 +98,14 @@ def createSecurityDict(responseString):
 
 handleOperations()
 
+# def trade(security):
+    # marketCap = run()
+    # netWorth = run(security +)
 
+
+
+# def getMarketCap(ticker):
+    
 
 
 
