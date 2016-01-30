@@ -4,6 +4,7 @@ import sys, time
 username = "Volcker"
 password = "bernankescrisis"
 database = {}
+securitiesOwned = {}
 
 def run(user, password, *commands):
     HOST, PORT = "codebb.cloudapp.net", 17429
@@ -115,22 +116,27 @@ def getMarketValue(ticker):
 
     return float((bidPrice * numBids) + (askPrice * numAsks)) / float(numAsks + numBids)
 
-
 def buyStock():
-        securities = createSecurityDict()
-        for security in securities:
-            print security
-            print "BID " + security + " " + str(securities[security]['askPrice']) +  " 10"
-            print runCommand("BID " + security + " " + str(securities[security]['askPrice']) +  " 10")
+    securities = createSecurityDict()
+    number = 10
+    for security in securities:
+        print security
+        print "BID " + security + " " + str(securities[security]['askPrice']) + " " + str(number)
+        #securitiesOwned[security] = securitiesOwned[security] + number
+        print runCommand("BID " + security + " " + str(securities[security]['askPrice']) + " " + str(number))
 
 def sellStock():
     securities = createSecurityDict()
+    number = 10
     for security in securities:
         print security
-        print "ASK " + security + " " + str(securities[security]['bidPrice']) +  " 10"
-        print runCommand("ASK " + security + " " + str(securities[security]['bidPrice']) +  " 10")
+        print "ASK " + security + " " + str(securities[security]['bidPrice']) +  " " + str(number)
+        #securitiesOwned[security] = securitiesOwned[security] + number
+        print runCommand("ASK " + security + " " + str(securities[security]['bidPrice']) +  " " + str(number))
 
 
+def ourSecurities():
+    return "We own :".join(securitiesOwned)
 
 # def trade(security, db):
 #     myCash = getMyCash();
@@ -149,6 +155,7 @@ def sellStock():
 #     }
 #     marketValue = (security.bid + secuirty.ask) / security.volume
 while True:
+    ourSecurities()
     buyStock()
-    time.sleep(60)
+    time.sleep(3)
     sellStock()
