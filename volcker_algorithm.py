@@ -3,7 +3,6 @@ import sys
 
 username = "Volcker"
 password = "bernankescrisis"
-securities = []
     
 def run(user, password, *commands):
     HOST, PORT = "codebb.cloudapp.net", 17429
@@ -44,8 +43,8 @@ def subscribe(user, password):
 
 
 
-#def handleOperations():
-# run(username, password, "SECURITIES")
+def handleOperations():
+ run(username, password, "SECURITIES")
     
 
 #     securities = ["AAPL", "GM", "C", "CMG", "DELL", "DIS", "F", "JPY", "XOM", "IBM"]
@@ -80,10 +79,10 @@ def getSecurities(responseString):
 
 def buy(security, price, shares):
     order = "BID " + security.upper() + " " + str(price) + " " + str(float(shares))
-    run("Volcker", "bernankescrisis", order)
+    run(username, password, order)
 def sell(security, price, shares):
     order = "ASK " + security.upper() + " " + str(price) + " " + str(float(shares))
-    run("Volcker", "bernankescrisis", order)
+    run(username, password, order)
 
 
 
