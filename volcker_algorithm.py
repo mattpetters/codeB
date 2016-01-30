@@ -118,10 +118,11 @@ createSecurityDict()
 
 def buy(security, price, shares):
     order = "BID " + security.upper() + " " + str(price) + " " + str(float(shares))
-    run(username, password, order)
+    print runCommand(order)
+
 def sell(security, price, shares):
     order = "ASK " + security.upper() + " " + str(price) + " " + str(float(shares))
-    run(username, password, order)
+    print runCommand(order)
 
 
 def getMyCash():
