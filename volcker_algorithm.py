@@ -73,7 +73,6 @@ def createSecurityDict():
 
 
     for security in securities:
-        print runCommand("ORDERS " + security)
         bidString = runCommand("ORDERS " + security).split()
         securities[security]["bidPrice"] = bidString[3]
         securities[security]["askPrice"] = bidString[7]
@@ -84,9 +83,9 @@ def createSecurityDict():
     print securities
     return securities
 
-while True:
-    time.sleep(1)
-    database = createSecurityDict()
+# while True:
+#     time.sleep(1)
+#     database = createSecurityDict()
 
 # def trade(security):
     # marketCap = run()
@@ -121,7 +120,7 @@ def getMarketValue(ticker):
     askPrice = float(database[ticker]["askPrice"])
     numAsks = float(database[ticker]["askPrice"])
 
-    return marketVal = float((bidPrice * numBids) + (askPrice * numAsks)) / float(numAsks + numBids)
+    return float((bidPrice * numBids) + (askPrice * numAsks)) / float(numAsks + numBids)
 
 
 
