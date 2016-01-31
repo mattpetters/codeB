@@ -4,7 +4,8 @@ import sys, time, math, os
 username = "Volcker"
 password = "bernankescrisis"
 database = {}
-securitiesOwned = {}
+timeHeldSec = {}
+
 
 def run(user, password, *commands):
     HOST, PORT = "codebb.cloudapp.net", 17429
@@ -156,7 +157,7 @@ def numSharesSec(ticker):
 def isSelling(ticker):
     blah = "ORDERS" + " " + str(ticker)
     string = runCommand(blah)
-    print string
+    # print string
     output = string.split()
 
     if "ASK" in output:
@@ -167,13 +168,14 @@ def isSelling(ticker):
 def isBuying(ticker):
     blah = "ORDERS" + " " + str(ticker)
     string = runCommand(blah)
-    print string
+    # print string
     output = string.split()
 
     if "BID" in output:
         return True
     else:
         return False
+
 
 def trade(security, db):
     print "=======Determining trade for: %s=================" % str(security)
@@ -204,10 +206,11 @@ def trade(security, db):
             else:
                 print runCommand("CLEAR_ASK")
     # buy
+    # print buy(security, askPrice, 1)
     if (marketVal >= float(askPrice) or (marketVal - askPrice) < 1):
         print "in buy"
-        x = (float(bidPrice - marketVal)/ float(bidPrice) * float(getMyCash()))
-        print x
+        x = ((bidPrice - marketVal)/ bidPrice * float(getMyCash()))
+        
         if x > 0:
             numSharesToBuy = math.floor(x/float(askPrice))
         else:
@@ -218,10 +221,6 @@ def trade(security, db):
                 buy(security, float(askPrice), numSharesToBuy)
             else:
                 print runCommand("CLEAR_BID")
-
-
-    else:
-        print "No trade for %s" % str(security)
-
+    print sell(security, bidPrice - 0.5, 2)
 
 if __name__ == "__main__": main()
